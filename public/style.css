@@ -1,0 +1,39 @@
+#page
+{
+    text-align:center;
+    font-size:xx-large;
+    border-style:solid;
+    border-width:thin;
+}
+        
+#header
+{
+    float:top;
+    text-align:center;
+    background-color:#999999;
+}
+        
+#menu
+{
+    text-align:left;
+    float:left;
+    color:blue;
+    background-color:#AAAAAA;
+    font-family:"Calibri";
+    margin-right:10px;
+    padding-left:10px;
+    width:100px;
+    height:900px;
+}
+        
+#section
+{
+    float:left;
+}
+        
+#footer
+{
+    background-color:#999999;
+    clear:both;
+    text-align:center;       
+}

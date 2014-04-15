@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#user-submit').click(function () {
+                var payload = {
+                    FName: $('#firstname').val(),
+                    LName: $('#lastname').val(),
+                    Email: $('#email').val(),
+                    Instrument: $('#instrument').val()
+                };
+
+		        console.log("user submit: " + payload);
+
+                $.ajax({
+                    url: "/getuser",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function (data) {
+                        $('#output').html(data.responseText);
+                    }
+                });
+            });
+
+            // Populate Drop Down Menu with users from MySQL
+            $.ajax({
+                url: "users/select",
+                type: "POST",
+                contentType: "application/json",
+                processData: false,
+                complete: function (data) {
+                    $('div#users').html(data.responseText);
+                }
+            });
+            
+            // Retrieve data from MySQL for a specific user
+            $('#query-submit').click(function () {
+                var payload = {
+                    Email: $('#user-list').val(),
+                };
+
+                console.log("query submit: " + payload);
+                    
+                $.ajax({
+                    url: "user",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function (data) {
+                        $('#output').html(data.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+    <link href="/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="header">
+        <h1 style="margin-bottom:0;"> Website </h1>
+    </div>
+
+    <div id="menu" >
+        <a href="/createuser/"> Create </a> <br />
+        <a href="/getuser/"> View </a>
+    </div>
+
+    <div id="page" >
+        View
+    </div>
+    <div id="section">
+        <h3>Musician: </h3>
+        Email: <br /> <input id="email" type="text" /> <br />
+        <input id="user-submit" type="submit" value="View Musician" /> <br />
+
+        <div id="users"></div>	
+        <input id="query-submit" type="submit" value="View Musician 2"/>
+
+        <p id="output">
+    </div>
+
+    <div id="footer">
+        Footer
+    </div>
+  </body>
+</html>

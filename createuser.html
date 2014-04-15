@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#user-create').click(function () {
+                var payload = {
+                    FName: $('#firstname').val(),
+                    LName: $('#lastname').val(),
+                    Email: $('#email').val(),
+                    Instrument: $('#instrument').val()
+                };
+
+                console.log(payload);
+
+                $.ajax({
+                    url: "/createuser",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function (data) {
+                        $('#output').html(data.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+    <link href="/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="header">
+        <h1 style="margin-bottom:0;"> Website </h1>
+    </div>
+
+    <div id="menu" >
+        <a href="/createuser/"> Create </a> <br />
+        <a href="/getuser/"> View </a>
+    </div>
+
+    <div id="page" >
+        Create
+    </div>
+    <div id="section">
+        <h3 >Musician: </h3>
+        Email: <br /> <input id="email" type="text" /> <br />
+        First name: <br /> <input id="firstname" type="text" /> <br />
+        Last name: <br /> <input id="lastname" type="text" /> <br />
+        Instrument: <br /> <input id="instrument" type="text" /> <br />
+        <br /> <input id="user-create" type="submit" value="Create Musician" /> <br />
+        <p id="output"></p>
+    </div>
+
+    <div id="footer">
+        Footer
+    </div>
+  </body>
+</html>
